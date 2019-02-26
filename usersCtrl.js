@@ -7,6 +7,7 @@ module.exports = {
         if (req.query.age) {
             const { age } = req.query;
             let userArr = [];
+            // I would like to see some of the higher order methods on these, just to make your intentions more clear
             for (let i = 0; i < userData.length; i++) {
                 if (userData[i].age < age) {
                     userArr.push(userData[i])
@@ -26,6 +27,7 @@ module.exports = {
         } else if (req.query.favorites) {
             const { favorites } = req.query;
             let userArr = [];
+            //using a filter and an includes can clean this up nice 
             for (let i = 0; i < userData.length; i++) {
                 for (let x = 0; x < userData[i].favorites.length; x++) {
                     if (userData[i].favorites[x] === favorites) {
@@ -40,6 +42,7 @@ module.exports = {
     },
     getUser: (req, res) => {
         const { id } = req.params;
+        //same on higher order
         for (let i = 0; i < userData.length; i++) {
             if (userData[i].id == id) {
                 res.status(200).send(userData[i]);
@@ -77,6 +80,7 @@ module.exports = {
     },
     updateUser: (req, res) => {
         const { id } = req.params;
+        // try using the spread operator a bit more to really shorten this up
         const { first_name, last_name, email, gender, language, age, city, state, type, favorites } = req.body;
         console.log(req.body);
         for (let i = 0; i < userData.length; i++) {
@@ -101,6 +105,7 @@ module.exports = {
     },
     addUser: (req, res) => {
         const { first_name, last_name, email, gender, language, age, city, state, type, favorites } = req.body;
+        // spread operator can shorten these two lines into about 20 characters
         const user = {
             id,
             first_name,
@@ -120,7 +125,7 @@ module.exports = {
     },
     deleteUser: (req, res) => {
         const {id} = req.params;
-
+        // filter could be good here too
         for (let i = 0; i < userData.length; i++) {
             if (userData[i].id == id) {
                 userData.splice(i, 1);
